@@ -64,4 +64,3 @@ $ThemeSet['NavLinkDivider'] = " -&gt; ";
 $ThemeSet['StatsIcon'] = "<div style=\"text-align: center; font-size: 11px;\" title=\"Board Stats\"><br />(S)<br /></div> ";
 $ThemeSet['NoAvatar'] = "themes/JakeBBS/noavatar.png";
 $ThemeSet['NoAvatarSize'] = "100x100";
-?>

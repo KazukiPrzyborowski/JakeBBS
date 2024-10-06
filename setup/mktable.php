@@ -15,14 +15,19 @@
     $FileInfo: mktable.php - Last Update: 07/01/1867 Ver 142 Author: Jake $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
-if ($File3Name=="mktable.php"||$File3Name=="/mktable.php") {
-	require('index.php');
-	exit(); }
-if(!isset($SetupDir['setup'])) { $SetupDir['setup'] = "setup/"; }
-if(!isset($SetupDir['convert'])) { $SetupDir['convert'] = "setup/convert/"; }
-$query=query("ALTER DATABASE `".$_POST['DatabaseName']."` DEFAULT CHARACTER SET ".$SQLCharset." COLLATE ".$SQLCollate.";", array(null));
+if ($File3Name == "mktable.php" || $File3Name == "/mktable.php") {
+    require('index.php');
+    exit();
+}
+if (!isset($SetupDir['setup'])) {
+    $SetupDir['setup'] = "setup/";
+}
+if (!isset($SetupDir['convert'])) {
+    $SetupDir['convert'] = "setup/convert/";
+}
+$query = query("ALTER DATABASE `".$_POST['DatabaseName']."` DEFAULT CHARACTER SET ".$SQLCharset." COLLATE ".$SQLCollate.";", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."categories` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."categories` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `OrderID` int(15) NOT NULL default '0',\n".
 "  `Name` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -36,10 +41,10 @@ $query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."categories` (
 "  PRIMARY KEY  (`id`)\n".
 ") ENGINE=MyISAM  DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
-$query = query("INSERT INTO `".$_POST['tableprefix']."categories` (`OrderID`, `Name`, `ShowCategory`, `CategoryType`, `SubShowForums`, `InSubCategory`, `PostCountView`, `KarmaCountView`, `Description`)\n". 
+$query = query("INSERT INTO `".$_POST['tableprefix']."categories` (`OrderID`, `Name`, `ShowCategory`, `CategoryType`, `SubShowForums`, `InSubCategory`, `PostCountView`, `KarmaCountView`, `Description`)\n".
 "VALUES (1, 'A Test Category', 'yes', 'category', 'yes', 0, 0, 0, 'A test category that may be removed at any time.')", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."catpermissions` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."catpermissions` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `PermissionID` int(15) NOT NULL default '0',\n".
 "  `Name` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -54,9 +59,9 @@ $query = query("INSERT INTO `".$_POST['tableprefix']."catpermissions` (`Permissi
 "(3, 'Member', 1, 'yes'),\n".
 "(4, 'Guest', 1, 'yes'),\n".
 "(5, 'Banned', 1, 'no'),\n".
-"(6, 'Validate', 1, 'yes');", array(null)); 
+"(6, 'Validate', 1, 'yes');", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."events` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."events` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `UserID` int(15) NOT NULL default '0',\n".
 "  `GuestName` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -76,7 +81,7 @@ exec_query($query);
 $query = query("INSERT INTO `".$_POST['tableprefix']."events` (`UserID`, `GuestName`, `EventName`, `EventText`, `TimeStamp`, `TimeStampEnd`, `EventMonth`, `EventMonthEnd`, `EventDay`, `EventDayEnd`, `EventYear`, `EventYearEnd`) VALUES\n".
 "(-1, '".$JakeBBS_Author."', 'Opening', 'This is the day the Board was made. ^_^', %i, %i, %i, %i, %i, %i, %i, %i)", array($YourDate,$YourDateEnd,$EventMonth,$EventMonthEnd,$EventDay,$EventDayEnd,$EventYear,$EventYearEnd));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."forums` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."forums` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `CategoryID` int(15) NOT NULL default '0',\n".
 "  `OrderID` int(15) NOT NULL default '0',\n".
@@ -101,7 +106,7 @@ exec_query($query);
 $query = query("INSERT INTO `".$_POST['tableprefix']."forums` (`CategoryID`, `OrderID`, `Name`, `ShowForum`, `ForumType`, `InSubForum`, `RedirectURL`, `Redirects`, `NumViews`, `Description`, `PostCountAdd`, `PostCountView`, `KarmaCountView`, `CanHaveTopics`, `HotTopicPosts`, `NumPosts`, `NumTopics`) VALUES\n".
 "(1, 1, 'A Test Forum', 'yes', 'forum', 0, 'http://', 0, 0, 'A test forum that may be removed at any time.', 'off', 0, 0, 'yes', 15, 1, 1)", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."groups` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."groups` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `Name` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
 "  `PermissionID` int(15) NOT NULL default '0',\n".
@@ -131,9 +136,9 @@ $query = query("INSERT INTO `".$_POST['tableprefix']."groups` (`Name`, `Permissi
 "('Member', 3, '', '', 'yes', 'no', 'yes', 'yes', 'yes', 'yes', 30, 30, 0, 0, 0, 'no', 'no', 'no'),\n".
 "('Guest', 4, '', '', 'yes', 'no', 'no', 'no', 'no', 'no', 30, 30, 0, 0, 0, 'no', 'no', 'no'),\n".
 "('Banned', 5, '', '', 'no', 'no', 'no', 'no', 'no', 'no', 30, 30, 0, 0, 0, 'no', 'no', 'no'),\n".
-"('Validate', 6, '', '', 'yes', 'no', 'yes', 'no', 'no', 'yes', 30, 30, 0, 0, 0, 'no', 'no', 'no');", array(null)); 
+"('Validate', 6, '', '', 'yes', 'no', 'yes', 'no', 'no', 'yes', 30, 30, 0, 0, 0, 'no', 'no', 'no');", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."members` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."members` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `Name` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
 "  `Password` varchar(250) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -178,7 +183,7 @@ $query = query("INSERT INTO `".$_POST['tableprefix']."members` (`id`, `Name`, `P
 "(-1, 'Guest', '%s', '".$JakeBBSHashType."', '%s', 4, 'no', 'yes', 0, 'Guest Account', 'Guest', %i, %i, '0', '0', '0', '0', '0', '[B]Test[/B] :)', 'Your Notes', 'http://', '100x100', '%s', 'UnKnow', 1, 0, 0, 10, 10, 10, '%s', '%s', 'JakeBBS', '127.0.0.1', '%s'),\n".
 "(1, '%s', '%s', '".$JakeBBSHashType."', '%s', 1, 'yes', 'no', 0, '%s', 'Admin', %i, %i, '0', '0', '0', '0', '0', '%s', 'Your Notes', '%s', '100x100', '%s', 'UnKnow', 0, 0, 0, 10, 10, 10, '%s', '%s', 'JakeBBS', '%s', '%s');", array($GuestPassword,$GEmail,$YourDate,$YourDate,$YourWebsite,$AdminTime,$AdminDST,$GSalt,$_POST['AdminUser'],$NewPassword,$_POST['AdminEmail'],$Interests,$YourDate,$YourDate,$NewSignature,$Avatar,$YourWebsite,$AdminTime,$AdminDST,$UserIP,$YourSalt));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."messenger` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."messenger` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `SenderID` int(15) NOT NULL default '0',\n".
 "  `ReciverID` int(15) NOT NULL default '0',\n".
@@ -194,7 +199,7 @@ exec_query($query);
 $query = query("INSERT INTO `".$_POST['tableprefix']."messenger` (`SenderID`, `ReciverID`, `GuestName`, `MessageTitle`, `MessageText`, `Description`, `DateSend`, `Read`) VALUES\n".
 "(-1, 1, '".$JakeBBS_Author."', 'Test', 'Hello Welcome to your board.\r\nThis is a Test PM. :P ', 'Hello Welcome', %i, 0)", array($YourDate));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."permissions` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."permissions` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `PermissionID` int(15) NOT NULL default '0',\n".
 "  `Name` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -225,9 +230,9 @@ $query = query("INSERT INTO `".$_POST['tableprefix']."permissions` (`PermissionI
 "(3, 'Member', 1, 'yes', 'yes', 'yes', 'no', 'yes', 'no', 'yes', 'no', 'yes', 'no', 'yes', 'no', 'no', 'no', 'no', 'yes', 'no'),\n".
 "(4, 'Guest', 1, 'yes', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no'),\n".
 "(5, 'Banned', 1, 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no'),\n".
-"(6, 'Validate', 1, 'yes', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no');", array(null)); 
+"(6, 'Validate', 1, 'yes', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no');", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."posts` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."posts` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `TopicID` int(15) NOT NULL default '0',\n".
 "  `ForumID` int(15) NOT NULL default '0',\n".
@@ -246,9 +251,9 @@ $query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."posts` (\n".
 ") ENGINE=MyISAM  DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
 $query = query("INSERT INTO `".$_POST['tableprefix']."posts` (`TopicID`, `ForumID`, `CategoryID`, `UserID`, `GuestName`, `TimeStamp`, `LastUpdate`, `EditUser`, `EditUserName`, `Post`, `Description`, `IP`, `EditIP`) VALUES\n".
-"(1, 1, 1, -1, '".$JakeBBS_Author."', %i, %i, 1, '".$_POST['AdminUser']."', 'Welcome to your new Internet Discussion Board! :) ', 'Welcome %s', '127.0.0.1', '127.0.0.1')", array($YourDate,$YourEditDate,$_POST['AdminUser'])); 
+"(1, 1, 1, -1, '".$JakeBBS_Author."', %i, %i, 1, '".$_POST['AdminUser']."', 'Welcome to your new Internet Discussion Board! :) ', 'Welcome %s', '127.0.0.1', '127.0.0.1')", array($YourDate,$YourEditDate,$_POST['AdminUser']));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."restrictedwords` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."restrictedwords` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `Word` text collate ".$SQLCollate." NOT NULL,\n".
 "  `RestrictedUserName` varchar(5) collate ".$SQLCollate." NOT NULL default '',\n".
@@ -260,14 +265,14 @@ $query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."restrictedwor
 "  PRIMARY KEY  (`id`)\n".
 ") ENGINE=MyISAM  DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."sessions` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."sessions` (\n".
 "  `session_id` varchar(150) collate ".$SQLCollate." NOT NULL default '',\n".
 "  `session_data` text collate ".$SQLCollate." NOT NULL,\n".
 "  `expires` int(15) NOT NULL default '0',\n".
 "  PRIMARY KEY  (`session_id`)\n".
 ") ENGINE=MyISAM DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."smileys` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."smileys` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `FileName` text collate ".$SQLCollate." NOT NULL,\n".
 "  `SmileName` text collate ".$SQLCollate." NOT NULL,\n".
@@ -307,10 +312,10 @@ $query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."tagboard` (\n
 "  PRIMARY KEY  (`id`)\n".
 ") ENGINE=MyISAM  DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
-$query = query("INSERT INTO `".$_POST['tableprefix']."tagboard` VALUES (1,-1,'".$JakeBBS_Author."',".$YourDate.",'Welcome to Your New Tag Board. ^_^','127.0.0.1'), array(null)); 
+$query = query("INSERT INTO `".$_POST['tableprefix']."tagboard` VALUES (1,-1,'".$JakeBBS_Author."',".$YourDate.",'Welcome to Your New Tag Board. ^_^','127.0.0.1'), array(null));
 exec_query($query);
 */
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."topics` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."topics` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `ForumID` int(15) NOT NULL default '0',\n".
 "  `CategoryID` int(15) NOT NULL default '0',\n".
@@ -332,7 +337,7 @@ exec_query($query);
 $query = query("INSERT INTO `".$_POST['tableprefix']."topics` (`ForumID`, `CategoryID`, `OldForumID`, `OldCategoryID`, `UserID`, `GuestName`, `TimeStamp`, `LastUpdate`, `TopicName`, `Description`, `NumReply`, `NumViews`, `Pinned`, `Closed`) VALUES\n".
 "(1, 1, 1, 1, -1, '".$JakeBBS_Author."', %i, %i, 'Welcome', 'Welcome %s', 0, 0, 1, 1)", array($YourDate,$YourDate,$_POST['AdminUser']));
 exec_query($query);
-$query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."wordfilter` (\n".
+$query = query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."wordfilter` (\n".
 "  `id` int(15) NOT NULL auto_increment,\n".
 "  `Filter` text collate ".$SQLCollate." NOT NULL,\n".
 "  `Replace` text collate ".$SQLCollate." NOT NULL,\n".
@@ -341,4 +346,3 @@ $query=query("CREATE TABLE IF NOT EXISTS `".$_POST['tableprefix']."wordfilter` (
 "  PRIMARY KEY  (`id`)\n".
 ") ENGINE=MyISAM  DEFAULT CHARSET=".$SQLCharset." COLLATE=".$SQLCollate.";", array(null));
 exec_query($query);
-?>

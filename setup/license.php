@@ -15,11 +15,16 @@
     $FileInfo: license.php - Last Update: 07/01/1867 Ver 142 Author: Jake $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
-if ($File3Name=="presetup.php"||$File3Name=="/presetup.php") {
-	require('index.php');
-	exit(); }
-if(!isset($SetupDir['setup'])) { $SetupDir['setup'] = "setup/"; }
-if(!isset($SetupDir['convert'])) { $SetupDir['convert'] = "setup/convert/"; }
+if ($File3Name == "presetup.php" || $File3Name == "/presetup.php") {
+    require('index.php');
+    exit();
+}
+if (!isset($SetupDir['setup'])) {
+    $SetupDir['setup'] = "setup/";
+}
+if (!isset($SetupDir['convert'])) {
+    $SetupDir['convert'] = "setup/convert/";
+}
 ?>
 <tr class="TableRow3">
 <td class="TableColumn3">
@@ -34,7 +39,7 @@ if(!isset($SetupDir['convert'])) { $SetupDir['convert'] = "setup/convert/"; }
 <table style="text-align: left;">
 <tr style="text-align: left;">
 <td style="width: 100%;">
-<?php if($ConvertInfo['ConvertFile']==null) { ?>
+<?php if ($ConvertInfo['ConvertFile'] == null) { ?>
 <input type="hidden" name="SetupType" value="install" style="display: none;" />
 <?php } ?>
 <input type="hidden" name="act" value="Part2" style="display: none;" />

@@ -21,4 +21,3 @@ $ThemeInfo['ThemeVersionType'] = "Omega";
 $ThemeInfo['ThemeSubVersion'] = "Ver 142";
 $ThemeInfo['MakerURL'] = "http://google.com/search?q=JakeBBS+Inc.&amp;btnI=I%27m+Feeling+Lucky";
 $ThemeInfo['CopyRight'] = $ThemeInfo['ThemeName']." was made by <a href=\"".$ThemeInfo['MakerURL']."\" title=\"".$ThemeInfo['ThemeMaker']."\">".$ThemeInfo['ThemeMaker']."</a>";
-?>

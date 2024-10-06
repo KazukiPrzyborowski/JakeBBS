@@ -13,11 +13,14 @@
 
     $FileInfo: admin.php - Last Update: 07/01/1867 Ver 142 Author: Jake $
 */
-if(@ini_get("register_globals")) {
-require_once('inc/misc/killglobals.php'); }
+if (@ini_get("register_globals")) {
+    require_once('inc/misc/killglobals.php');
+}
 require('preindex.php');
 $usefileext = $Settings['file_ext'];
-if($ext=="noext"||$ext=="no ext"||$ext=="no+ext") { $usefileext = ""; }
+if ($ext == "noext" || $ext == "no ext" || $ext == "no+ext") {
+    $usefileext = "";
+}
 $filewpath = $exfile['admin'].$usefileext.$_SERVER['PATH_INFO'];
 ?>
 
@@ -25,69 +28,94 @@ $filewpath = $exfile['admin'].$usefileext.$_SERVER['PATH_INFO'];
 </head>
 <body>
 <?php
-$_SESSION['ViewingPage'] = url_maker(null,"no+ext","act=view","&","=",$prexqstr['index'],$exqstr['index']);
-if($Settings['file_ext']!="no+ext"&&$Settings['file_ext']!="no ext") {
-$_SESSION['ViewingFile'] = $exfile['index'].$Settings['file_ext']; }
-if($Settings['file_ext']=="no+ext"||$Settings['file_ext']=="no ext") {
-$_SESSION['ViewingFile'] = $exfile['index']; }
+$_SESSION['ViewingPage'] = url_maker(null, "no+ext", "act=view", "&", "=", $prexqstr['index'], $exqstr['index']);
+if ($Settings['file_ext'] != "no+ext" && $Settings['file_ext'] != "no ext") {
+    $_SESSION['ViewingFile'] = $exfile['index'].$Settings['file_ext'];
+}
+if ($Settings['file_ext'] == "no+ext" || $Settings['file_ext'] == "no ext") {
+    $_SESSION['ViewingFile'] = $exfile['index'];
+}
 $_SESSION['PreViewingTitle'] = "Viewing";
 $_SESSION['ViewingTitle'] = "Board index";
-if(!isset($_GET['subact'])) { $_GET['subact'] = null; }
-if(!isset($_POST['subact'])) { $_POST['subact'] = null; }
-if(!isset($_GET['menu'])) { $_GET['menu'] = null; }
+if (!isset($_GET['subact'])) {
+    $_GET['subact'] = null;
+}
+if (!isset($_POST['subact'])) {
+    $_POST['subact'] = null;
+}
+if (!isset($_GET['menu'])) {
+    $_GET['menu'] = null;
+}
 $AdminMenu = null;
 require($SettDir['inc'].'navbar.php');
-if($_SESSION['UserGroup']==$Settings['GuestGroup']||$GroupInfo['HasAdminCP']=="no") {
-redirect("location",$basedir.url_maker($exfile['index'],$Settings['file_ext'],"act=view",$Settings['qstr'],$Settings['qsep'],$prexqstr['index'],$exqstr['index'],false));
-ob_clean(); @header("Content-Type: text/plain; charset=".$Settings['charset']);
-gzip_page($Settings['use_gzip'],$GZipEncode['Type']); @session_write_close(); die(); }
-if($_GET['act']==null) {
-	$_GET['act']="view"; }
-if($_GET['act']=="view"&&$GroupInfo['ViewDBInfo']!="yes") {
-	$_GET['act']="view"; }
-if($_GET['act']=="vercheck"&&$GroupInfo['ViewDBInfo']=="yes") {
-	@header("Location: ".$VerCheckURL."&bid=".$Settings['bid']."&vercheck=newtype"); }
-if($_GET['act']=="view")
-{ $AdminMenu = "menu";
-if($_GET['menu']==null) {
-   $AdminMenu = "main"; }
-require($SettDir['admin'].'main.php'); }
-if($_GET['act']=="settings"||
-	$_GET['act']=="mysql"||
-	$_GET['act']=="info"||
-	$_GET['act']=="optimize"||
-	$_GET['act']=="delsessions")
-{ $AdminMenu = "main";
-require($SettDir['admin'].'main.php'); }
-if($_GET['act']=="addforum"||
-	$_GET['act']=="editforum"||
-	$_GET['act']=="deleteforum"||
-	$_GET['act']=="retopics"||
-	$_GET['act']=="rereplies"||
-	$_GET['act']=="fixrnames"||
-	$_GET['act']=="fixtnames"||
-	$_GET['act']=="fpermissions")
-{ $AdminMenu = "forums";
-require($SettDir['admin'].'forums.php'); }
-if($_GET['act']=="addcategory"||
-	$_GET['act']=="editcategory"||
-	$_GET['act']=="deletecategory"||
-	$_GET['act']=="cpermissions")
-{ $AdminMenu = "categories";
-require($SettDir['admin'].'categories.php'); }
-if($_GET['act']=="validate"||
-	$_GET['act']=="editmember"||
-	$_GET['act']=="deletemember")
-{ $AdminMenu = "members";
-require($SettDir['admin'].'members.php'); }
-require($SettDir['inc'].'endpage.php'); 
-if(!isset($admincptitle)) { $admincptitle = null; }
+if ($_SESSION['UserGroup'] == $Settings['GuestGroup'] || $GroupInfo['HasAdminCP'] == "no") {
+    redirect("location", $basedir.url_maker($exfile['index'], $Settings['file_ext'], "act=view", $Settings['qstr'], $Settings['qsep'], $prexqstr['index'], $exqstr['index'], false));
+    ob_clean();
+    @header("Content-Type: text/plain; charset=".$Settings['charset']);
+    gzip_page($Settings['use_gzip'], $GZipEncode['Type']);
+    @session_write_close();
+    die();
+}
+if ($_GET['act'] == null) {
+    $_GET['act'] = "view";
+}
+if ($_GET['act'] == "view" && $GroupInfo['ViewDBInfo'] != "yes") {
+    $_GET['act'] = "view";
+}
+if ($_GET['act'] == "vercheck" && $GroupInfo['ViewDBInfo'] == "yes") {
+    @header("Location: ".$VerCheckURL."&bid=".$Settings['bid']."&vercheck=newtype");
+}
+if ($_GET['act'] == "view") {
+    $AdminMenu = "menu";
+    if ($_GET['menu'] == null) {
+        $AdminMenu = "main";
+    }
+    require($SettDir['admin'].'main.php');
+}
+if ($_GET['act'] == "settings" ||
+    $_GET['act'] == "mysql" ||
+    $_GET['act'] == "info" ||
+    $_GET['act'] == "optimize" ||
+    $_GET['act'] == "delsessions") {
+    $AdminMenu = "main";
+    require($SettDir['admin'].'main.php');
+}
+if ($_GET['act'] == "addforum" ||
+    $_GET['act'] == "editforum" ||
+    $_GET['act'] == "deleteforum" ||
+    $_GET['act'] == "retopics" ||
+    $_GET['act'] == "rereplies" ||
+    $_GET['act'] == "fixrnames" ||
+    $_GET['act'] == "fixtnames" ||
+    $_GET['act'] == "fpermissions") {
+    $AdminMenu = "forums";
+    require($SettDir['admin'].'forums.php');
+}
+if ($_GET['act'] == "addcategory" ||
+    $_GET['act'] == "editcategory" ||
+    $_GET['act'] == "deletecategory" ||
+    $_GET['act'] == "cpermissions") {
+    $AdminMenu = "categories";
+    require($SettDir['admin'].'categories.php');
+}
+if ($_GET['act'] == "validate" ||
+    $_GET['act'] == "editmember" ||
+    $_GET['act'] == "deletemember") {
+    $AdminMenu = "members";
+    require($SettDir['admin'].'members.php');
+}
+require($SettDir['inc'].'endpage.php');
+if (!isset($admincptitle)) {
+    $admincptitle = null;
+}
 ?>
 </body>
 </html>
 <?php
-if($admincptitle==null) {
-change_title($Settings['board_name']." ".$ThemeSet['TitleDivider']." Admin CP",$Settings['use_gzip'],$GZipEncode['Type']); }
-if($admincptitle!=null) {
-change_title($Settings['board_name'].$admincptitle,$Settings['use_gzip'],$GZipEncode['Type']); }
+if ($admincptitle == null) {
+    change_title($Settings['board_name']." ".$ThemeSet['TitleDivider']." Admin CP", $Settings['use_gzip'], $GZipEncode['Type']);
+}
+if ($admincptitle != null) {
+    change_title($Settings['board_name'].$admincptitle, $Settings['use_gzip'], $GZipEncode['Type']);
+}
 ?>
